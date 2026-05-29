@@ -3,10 +3,11 @@ import { getBuoyData } from "../lib/noaa";
 
 export default async function Home() {
   const buoy = await getBuoyData();
+  console.log(buoy.raw);
 
 const data = {
   station: "42007",
-  name: "Biloxi Buoy",
+  name: "Gulf Buoy 42040",
   waterTemp: Number(buoy.waterTemp),
   windSpeed: Number(buoy.windSpeed),
   waveHeight: Number(buoy.waveHeight),
@@ -26,11 +27,26 @@ const data = {
         </p>
 
         <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <Card title="Station" value={data.name} />
-          <Card title="Water Temp" value={`${data.waterTemp} °C`} />
-          <Card title="Wind Speed" value={`${data.windSpeed} m/s`} />
-          <Card title="Wave Height" value={`${data.waveHeight} m`} />
+        <Card title="Station" value={data.name} />
+
+<Card
+  title="Water Temp"
+  value={Number.isNaN(data.waterTemp) ? "N/A" : `${data.waterTemp} °C`}
+/>
+
+<Card
+  title="Wind Speed"
+  value={Number.isNaN(data.windSpeed) ? "N/A" : `${data.windSpeed} m/s`}
+/>
+<Card
+  title="Wave Height"
+  value={Number.isNaN(data.waveHeight) ? "N/A" : `${data.waveHeight} m`}
+/>
         </div>
+
+        <p className="mt-4 text-sm text-slate-500">
+  Some values may show N/A when the NOAA buoy is not reporting that measurement.
+</p>
 
         <div className="mt-6 rounded-2xl bg-white p-6 shadow">
           <h2 className="text-xl font-semibold text-slate-900">
