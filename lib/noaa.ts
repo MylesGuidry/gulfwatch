@@ -13,6 +13,11 @@ export async function getBuoyData() {
     windSpeed: latest[6],
     waveHeight: latest[8],
     waterTemp: latest[14],
+    year: latest[0],
+    month: latest[1],
+    day: latest[2],
+    hour: latest[3],
+    minute: latest[4],
     raw: latest,
   };
 }
